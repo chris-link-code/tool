@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.demo</groupId>
+    <artifactId>flatlaf</artifactId>
+    <version>1.0</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!--<maven-shade-plugin.version>3.4.0</maven-shade-plugin.version>-->
+        <javapackager.version>1.6.7</javapackager.version>
+        <slf4j-api.version>2.0.3</slf4j-api.version>
+        <logback-classic.version>1.4.4</logback-classic.version>
+        <logback-core.version>1.4.4</logback-core.version>
+        <lombok.version>1.18.24</lombok.version>
+        <flatlaf.version>2.6</flatlaf.version>
+        <miglayout-swing.version>11.0</miglayout-swing.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback-classic.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>${flatlaf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-extras</artifactId>
+            <version>${flatlaf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-intellij-themes</artifactId>
+            <version>${flatlaf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.miglayout</groupId>
+            <artifactId>miglayout-swing</artifactId>
+            <version>${miglayout-swing.version}</version>
+        </dependency>
+    </dependencies>
+
+    <!--
+    maven-jar-plugin
+    指挥打包本项目得class，不会将依赖的jar包打入，依赖的jar放入同级得lib文件夹即可
+
+    maven-assembly-plugin
+    Assembly 插件支持将项目的所有依赖、文件都打包到同一个输出文件中
+
+    maven-shade-plugin 比 maven-assembly-plugin 功能更为强大
+    通常使用 maven-shade-plugin 就能够完成大多数的打包需求，其配置简单且适用性最广，因此建议优先使用此方式
+    target会生成两个jar包，original开头的是不包含依赖的包
+    -->
+    <!--<build>
+        <finalName>flatlaf</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>${maven-shade-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.formdev.flatlaf.demo.FlatLafDemo</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>-->
+
+    <!-- 打包成各个平台的可执行文件 -->
+    <build>
+        <finalName>tool</finalName>
+        <plugins>
+            <plugin>
+                <groupId>io.github.fvarrui</groupId>
+                <artifactId>javapackager</artifactId>
+                <version>${javapackager.version}</version>
+                <configuration>
+                    <bundleJre>true</bundleJre>
+                    <mainClass>com.formdev.flatlaf.demo.FlatLafDemo</mainClass>
+                    <generateInstaller>true</generateInstaller>
+                </configuration>
+                <executions>
+                    <!--<execution>
+                        <id>bundling-for-windows</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                        <configuration>
+                            <platform>windows</platform>
+                            <createZipball>true</createZipball>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>bundling-for-linux</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                        <configuration>
+                            <platform>linux</platform>
+                            <createTarball>true</createTarball>
+                            <jdkPath>X:\\path\to\linux\jdk</jdkPath>
+                        </configuration>
+                    </execution>-->
+                    <execution>
+                        <!-- //TODO 打包出来的安装包安装后无法启动 -->
+                        <!-- 原因是可执行文件无法执行 -->
+                        <!-- /Application/flatlaf.app/Contents/MacOS/universalJavaApplicationStub -->
+                        <id>bundling-for-mac</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                        <configuration>
+                            <platform>mac</platform>
+                            <createTarball>true</createTarball>
+                            <!--<jdkPath>/Library/Java/jdk-17</jdkPath>-->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

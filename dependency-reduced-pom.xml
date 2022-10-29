@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.demo</groupId>
+  <artifactId>flatlaf</artifactId>
+  <version>1.0</version>
+  <build>
+    <finalName>flatlaf</finalName>
+    <plugins>
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>${maven-shade-plugin.version}</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer>
+                  <mainClass>com.formdev.flatlaf.demo.FlatLafDemo</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <properties>
+    <lombok.version>1.18.24</lombok.version>
+    <maven.compiler.target>17</maven.compiler.target>
+    <flatlaf.version>2.6</flatlaf.version>
+    <miglayout-swing.version>11.0</miglayout-swing.version>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven-shade-plugin.version>3.4.0</maven-shade-plugin.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <slf4j-api.version>2.0.3</slf4j-api.version>
+    <logback-classic.version>1.4.3</logback-classic.version>
+    <logback-core.version>1.4.3</logback-core.version>
+  </properties>
+</project>
