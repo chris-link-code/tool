@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.formdev.flatlaf.demo;
+package com.demo;
 
 import java.awt.*;
 import javax.swing.*;
@@ -394,7 +394,7 @@ class MoreComponentsPanel
 			toolBar1.add(toggleButton6);
 
 			//---- button1 ----
-			button1.setIcon(new ImageIcon(getClass().getResource("/com/formdev/flatlaf/demo/icons/intellij-showWriteAccess.png")));
+			button1.setIcon(new ImageIcon(getClass().getResource("/com/demo/icons/intellij-showWriteAccess.png")));
 			button1.setEnabled(false);
 			toolBar1.add(button1);
 		}
@@ -476,7 +476,7 @@ class MoreComponentsPanel
 		add(splitPane3, "cell 1 11 4 1,grow");
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 
-		if( FlatLafDemo.screenshotsMode ) {
+		if( Application.screenshotsMode ) {
 			Component[] components = new Component[] {
 				indeterminateCheckBox,
 				toolTipLabel, toolTip1, toolTip2,

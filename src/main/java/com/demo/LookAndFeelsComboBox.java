@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.formdev.flatlaf.demo;
+package com.demo;
 
 import java.awt.Component;
 import java.beans.PropertyChangeEvent;

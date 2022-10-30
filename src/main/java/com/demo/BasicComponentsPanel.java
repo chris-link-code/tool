@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.formdev.flatlaf.demo;
+package com.demo;
 
 import java.awt.Component;
 import javax.swing.*;
@@ -48,11 +48,11 @@ class BasicComponentsPanel
 		leadingIconTextField.putClientProperty( FlatClientProperties.TEXT_FIELD_LEADING_ICON,
 			new FlatSearchIcon() );
 		trailingIconTextField.putClientProperty( FlatClientProperties.TEXT_FIELD_TRAILING_ICON,
-			new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/DataTables.svg" ) );
+			new FlatSVGIcon("com/demo/icons/DataTables.svg") );
 		iconsTextField.putClientProperty( FlatClientProperties.TEXT_FIELD_LEADING_ICON,
-			new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/user.svg" ) );
+			new FlatSVGIcon("com/demo/icons/user.svg") );
 		iconsTextField.putClientProperty( FlatClientProperties.TEXT_FIELD_TRAILING_ICON,
-			new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/bookmarkGroup.svg" ) );
+			new FlatSVGIcon("com/demo/icons/bookmarkGroup.svg") );
 
 		// search history button
 		JButton searchHistoryButton = new JButton( new FlatSearchWithHistoryIcon( true ) );
@@ -65,21 +65,21 @@ class BasicComponentsPanel
 		compsTextField.putClientProperty( FlatClientProperties.TEXT_FIELD_LEADING_COMPONENT, searchHistoryButton );
 
 		// match case button
-		JToggleButton matchCaseButton = new JToggleButton( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/matchCase.svg" ) );
-		matchCaseButton.setRolloverIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/matchCaseHovered.svg" ) );
-		matchCaseButton.setSelectedIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/matchCaseSelected.svg" ) );
+		JToggleButton matchCaseButton = new JToggleButton( new FlatSVGIcon("com/demo/icons/matchCase.svg") );
+		matchCaseButton.setRolloverIcon( new FlatSVGIcon("com/demo/icons/matchCaseHovered.svg") );
+		matchCaseButton.setSelectedIcon( new FlatSVGIcon("com/demo/icons/matchCaseSelected.svg") );
 		matchCaseButton.setToolTipText( "Match Case" );
 
 		// whole words button
-		JToggleButton wordsButton = new JToggleButton( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/words.svg" ) );
-		wordsButton.setRolloverIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/wordsHovered.svg" ) );
-		wordsButton.setSelectedIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/wordsSelected.svg" ) );
+		JToggleButton wordsButton = new JToggleButton( new FlatSVGIcon("com/demo/icons/words.svg") );
+		wordsButton.setRolloverIcon( new FlatSVGIcon("com/demo/icons/wordsHovered.svg") );
+		wordsButton.setSelectedIcon( new FlatSVGIcon("com/demo/icons/wordsSelected.svg") );
 		wordsButton.setToolTipText( "Whole Words" );
 
 		// regex button
-		JToggleButton regexButton = new JToggleButton( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/regex.svg" ) );
-		regexButton.setRolloverIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/regexHovered.svg" ) );
-		regexButton.setSelectedIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/regexSelected.svg" ) );
+		JToggleButton regexButton = new JToggleButton( new FlatSVGIcon("com/demo/icons/regex.svg") );
+		regexButton.setRolloverIcon( new FlatSVGIcon("com/demo/icons/regexHovered.svg") );
+		regexButton.setSelectedIcon( new FlatSVGIcon("com/demo/icons/regexSelected.svg") );
 		regexButton.setToolTipText( "Regular Expression" );
 
 		// search toolbar
@@ -862,7 +862,7 @@ class BasicComponentsPanel
 		copyMenuItem.addActionListener( new DefaultEditorKit.CopyAction() );
 		pasteMenuItem.addActionListener( new DefaultEditorKit.PasteAction() );
 
-		if( FlatLafDemo.screenshotsMode ) {
+		if( Application.screenshotsMode ) {
 			// hide some components
 			Component[] hiddenComponents = {
 				labelLabel, label1, label2,

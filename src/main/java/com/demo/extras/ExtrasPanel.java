@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.formdev.flatlaf.demo.extras;
+package com.demo.extras;
 
 import javax.swing.*;
 import com.formdev.flatlaf.extras.*;
@@ -63,7 +63,7 @@ public class ExtrasPanel
 	}
 
 	private void initRainbowIcon() {
-		FlatSVGIcon icon = new FlatSVGIcon( "com/formdev/flatlaf/demo/extras/svg/informationDialog.svg" );
+		FlatSVGIcon icon = new FlatSVGIcon("com/demo/extras/svg/informationDialog.svg");
 		icon.setColorFilter( new ColorFilter( color -> {
 			rainbowCounter += 1;
 			rainbowCounter %= 255;

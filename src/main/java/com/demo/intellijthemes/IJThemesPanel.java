@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.formdev.flatlaf.demo.intellijthemes;
+package com.demo.intellijthemes;
 
+import com.demo.DemoPrefs;
 import com.formdev.flatlaf.*;
-import com.formdev.flatlaf.demo.DemoPrefs;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.util.LoggingFacade;
@@ -71,8 +71,8 @@ public class IJThemesPanel
 
         saveButton.setEnabled(false);
         sourceCodeButton.setEnabled(false);
-        saveButton.setIcon(new FlatSVGIcon("com/formdev/flatlaf/demo/icons/download.svg"));
-        sourceCodeButton.setIcon(new FlatSVGIcon("com/formdev/flatlaf/demo/icons/github.svg"));
+        saveButton.setIcon(new FlatSVGIcon("com/demo/icons/download.svg"));
+        sourceCodeButton.setIcon(new FlatSVGIcon("com/demo/icons/github.svg"));
 
         // create renderer
         themesList.setCellRenderer(new DefaultListCellRenderer() {

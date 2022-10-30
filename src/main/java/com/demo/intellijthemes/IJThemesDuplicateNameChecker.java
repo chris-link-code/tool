@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.formdev.flatlaf.demo.intellijthemes;
+package com.demo.intellijthemes;
 
 import java.io.FileInputStream;
 import java.io.IOException;

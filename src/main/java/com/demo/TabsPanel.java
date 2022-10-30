@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.formdev.flatlaf.demo;
+package com.demo;
 
 import static com.formdev.flatlaf.FlatClientProperties.*;
 import java.awt.*;
@@ -175,17 +175,17 @@ class TabsPanel
 			leading = new JToolBar();
 			leading.setFloatable( false );
 			leading.setBorder( null );
-			leading.add( new JButton( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/project.svg" ) ) );
+			leading.add( new JButton( new FlatSVGIcon("com/demo/icons/project.svg") ) );
 		}
 		if( trailingComponentButton.isSelected() ) {
 			trailing = new JToolBar();
 			trailing.setFloatable( false );
 			trailing.setBorder( null );
-			trailing.add( new JButton( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/buildLoadChanges.svg" ) ) );
+			trailing.add( new JButton( new FlatSVGIcon("com/demo/icons/buildLoadChanges.svg") ) );
 			trailing.add( Box.createHorizontalGlue() );
-			trailing.add( new JButton( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/commit.svg" ) ) );
-			trailing.add( new JButton( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/diff.svg" ) ) );
-			trailing.add( new JButton( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/listFiles.svg" ) ) );
+			trailing.add( new JButton( new FlatSVGIcon("com/demo/icons/commit.svg") ) );
+			trailing.add( new JButton( new FlatSVGIcon("com/demo/icons/diff.svg") ) );
+			trailing.add( new JButton( new FlatSVGIcon("com/demo/icons/listFiles.svg") ) );
 		}
 		customComponentsTabbedPane.putClientProperty( TABBED_PANE_LEADING_COMPONENT, leading );
 		customComponentsTabbedPane.putClientProperty( TABBED_PANE_TRAILING_COMPONENT, trailing );
@@ -235,10 +235,10 @@ class TabsPanel
 			tabbedPane.putClientProperty( TABBED_PANE_TAB_AREA_ALIGNMENT, TABBED_PANE_ALIGN_FILL );
 			tabbedPane.putClientProperty( TABBED_PANE_TAB_WIDTH_MODE, TABBED_PANE_TAB_WIDTH_MODE_EQUAL );
 		}
-		tabbedPane.addTab( "Search", new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/search.svg", iconSize, iconSize ), null );
-		tabbedPane.addTab( "Recents", new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/RecentlyUsed.svg", iconSize, iconSize ), null );
+		tabbedPane.addTab( "Search", new FlatSVGIcon("com/demo/icons/search.svg", iconSize, iconSize ), null );
+		tabbedPane.addTab( "Recents", new FlatSVGIcon("com/demo/icons/RecentlyUsed.svg", iconSize, iconSize ), null );
 		if( topOrBottom )
-			tabbedPane.addTab( "Favorites", new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/favorite.svg", iconSize, iconSize ), null );
+			tabbedPane.addTab( "Favorites", new FlatSVGIcon("com/demo/icons/favorite.svg", iconSize, iconSize ), null );
 	}
 
 	private void initTabAreaAlignment( JTabbedPane tabbedPane, String tabAreaAlignment ) {
@@ -262,9 +262,9 @@ class TabsPanel
 	private void initTabWidthMode( JTabbedPane tabbedPane, String tabWidthMode ) {
 		tabbedPane.putClientProperty( TABBED_PANE_TAB_WIDTH_MODE, tabWidthMode );
 		if( tabWidthMode.equals( TABBED_PANE_TAB_WIDTH_MODE_COMPACT ) ) {
-			tabbedPane.addTab( "Search", new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/search.svg", 16, 16 ), null );
-			tabbedPane.addTab( "Recents", new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/RecentlyUsed.svg", 16, 16 ), null );
-			tabbedPane.addTab( "Favorites", new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/favorite.svg", 16, 16 ), null );
+			tabbedPane.addTab( "Search", new FlatSVGIcon("com/demo/icons/search.svg", 16, 16 ), null );
+			tabbedPane.addTab( "Recents", new FlatSVGIcon("com/demo/icons/RecentlyUsed.svg", 16, 16 ), null );
+			tabbedPane.addTab( "Favorites", new FlatSVGIcon("com/demo/icons/favorite.svg", 16, 16 ), null );
 		} else {
 			tabbedPane.addTab( "Short", null );
 			tabbedPane.addTab( "Longer Title", null );
@@ -888,7 +888,7 @@ class TabsPanel
 		tabTypeButtonGroup.add(cardTabTypeButton);
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 
-		if( FlatLafDemo.screenshotsMode ) {
+		if( Application.screenshotsMode ) {
 			Component[] components = new Component[] {
 				tabPlacementLabel, tabPlacementToolBar, tabPlacementTabbedPane,
 				iconBottomTabbedPane, iconTrailingTabbedPane,

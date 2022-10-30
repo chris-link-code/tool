@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.formdev.flatlaf.demo;
+package com.demo;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,7 +24,7 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.FlatPropertiesLaf;
 import com.formdev.flatlaf.IntelliJTheme;
-import com.formdev.flatlaf.demo.intellijthemes.IJThemesPanel;
+import com.demo.intellijthemes.IJThemesPanel;
 import com.formdev.flatlaf.util.LoggingFacade;
 import com.formdev.flatlaf.util.StringUtils;
 

@@ -19,7 +19,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.formdev.flatlaf.demo.FlatLafDemo</mainClass>
+                  <mainClass>com.demo.Application</mainClass>
                 </transformer>
               </transformers>
             </configuration>

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.formdev.flatlaf.demo;
+package com.demo;
 
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatInspector;
@@ -29,7 +29,7 @@ import java.awt.*;
  * @author Karl Tauber
  */
 @Slf4j
-public class FlatLafDemo {
+public class Application {
     static final String PREFS_ROOT_PATH = "/flatlaf-demo";
     static final String KEY_TAB = "tab";
 
@@ -68,7 +68,7 @@ public class FlatLafDemo {
             JDialog.setDefaultLookAndFeelDecorated(true);
         }
 
-        if (FlatLafDemo.screenshotsMode && !SystemInfo.isJava_9_orLater && System.getProperty("flatlaf.uiScale") == null) {
+        if (Application.screenshotsMode && !SystemInfo.isJava_9_orLater && System.getProperty("flatlaf.uiScale") == null) {
             System.setProperty("flatlaf.uiScale", "2x");
         }
 
@@ -88,7 +88,7 @@ public class FlatLafDemo {
             // create frame
             DemoFrame frame = new DemoFrame();
 
-            if (FlatLafDemo.screenshotsMode) {
+            if (Application.screenshotsMode) {
                 frame.setPreferredSize(SystemInfo.isJava_9_orLater
                         ? new Dimension(830, 440)
                         : new Dimension(1660, 880));
