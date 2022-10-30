@@ -115,7 +115,7 @@
                 <configuration>
                     <bundleJre>true</bundleJre>
                     <mainClass>com.formdev.flatlaf.demo.FlatLafDemo</mainClass>
-                    <generateInstaller>true</generateInstaller>
+                    <generateInstaller>false</generateInstaller>
                 </configuration>
                 <executions>
                     <!--<execution>
