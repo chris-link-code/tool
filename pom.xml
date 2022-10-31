@@ -145,13 +145,14 @@
                         <!-- //TODO 打包出来的安装包安装后无法启动 -->
                         <!-- 原因是可执行文件无法执行 -->
                         <!-- /Application/flatlaf.app/Contents/MacOS/universalJavaApplicationStub -->
-                        <id>bundling-for-mac</id>
+                        <id>bundling-for-windows</id>
+                        <!--<id>bundling-for-mac</id>-->
                         <phase>package</phase>
                         <goals>
                             <goal>package</goal>
                         </goals>
                         <configuration>
-                            <platform>mac</platform>
+                            <platform>windows</platform>
                             <createTarball>true</createTarball>
                             <!--<jdkPath>/Library/Java/jdk-17</jdkPath>-->
                         </configuration>
