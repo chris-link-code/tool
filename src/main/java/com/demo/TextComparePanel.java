@@ -2,7 +2,7 @@
  * Created by JFormDesigner on Mon Oct 31 20:30:37 CST 2022
  */
 
-package com.formdev.flatlaf.demo;
+package com.demo;
 
 import lombok.extern.slf4j.Slf4j;
 import net.miginfocom.swing.MigLayout;
@@ -29,8 +29,8 @@ public class TextComparePanel extends JPanel {
     private void button2MouseClicked(MouseEvent e) {
         String text1 = textArea1.getText();
         String text2 = textArea2.getText();
-        // log.info("text1: " + text1);
-        // log.info("text2: " + text2);
+        log.info("text1: " + text1);
+        log.info("text2: " + text2);
     }
 
     private void initComponents() {

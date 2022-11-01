@@ -23,11 +23,11 @@
  * java -classpath classes name/fraser/neil/plaintext/diff_match_patch_test
  */
 
-package com.formdev.flatlaf.demo.util;
+package com.demo.util;
 
-import com.formdev.flatlaf.demo.util.diff_match_patch.Diff;
-import com.formdev.flatlaf.demo.util.diff_match_patch.LinesToCharsResult;
-import com.formdev.flatlaf.demo.util.diff_match_patch.Patch;
+import com.demo.util.diff_match_patch.Diff;
+import com.demo.util.diff_match_patch.LinesToCharsResult;
+import com.demo.util.diff_match_patch.Patch;
 
 import java.util.*;
 

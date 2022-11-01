@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.formdev.flatlaf.demo.util;
+package com.demo.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

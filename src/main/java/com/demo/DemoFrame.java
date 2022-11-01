@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.formdev.flatlaf.demo;
+package com.demo;
 
 import com.formdev.flatlaf.*;
-import com.formdev.flatlaf.demo.HintManager.Hint;
-import com.formdev.flatlaf.demo.extras.ExtrasPanel;
-import com.formdev.flatlaf.demo.intellijthemes.IJThemesPanel;
+import com.demo.HintManager.Hint;
+import com.demo.extras.ExtrasPanel;
+import com.demo.intellijthemes.IJThemesPanel;
 import com.formdev.flatlaf.extras.*;
 import com.formdev.flatlaf.extras.components.FlatButton;
 import com.formdev.flatlaf.extras.components.FlatButton.ButtonType;
@@ -61,7 +61,7 @@ class DemoFrame
 	private int initialFontMenuItemCount = -1;
 
 	DemoFrame() {
-		int tabIndex = DemoPrefs.getState().getInt( FlatLafDemo.KEY_TAB, 0 );
+		int tabIndex = DemoPrefs.getState().getInt( Application.KEY_TAB, 0 );
 
 		availableFontFamilyNames = GraphicsEnvironment.getLocalGraphicsEnvironment()
 			.getAvailableFontFamilyNames().clone();
@@ -72,7 +72,7 @@ class DemoFrame
 		initAccentColors();
 		controlBar.initialize( this, tabbedPane );
 
-		setIconImages( FlatSVGUtils.createWindowIconImages( "/com/formdev/flatlaf/demo/FlatLaf.svg" ) );
+		setIconImages( FlatSVGUtils.createWindowIconImages("/com/demo/FlatLaf.svg") );
 
 		if( tabIndex >= 0 && tabIndex < tabbedPane.getTabCount() && tabIndex != tabbedPane.getSelectedIndex() )
 			tabbedPane.setSelectedIndex( tabIndex );
@@ -213,7 +213,7 @@ class DemoFrame
 	}
 
 	private void selectedTabChanged() {
-		DemoPrefs.getState().putInt( FlatLafDemo.KEY_TAB, tabbedPane.getSelectedIndex() );
+		DemoPrefs.getState().putInt( Application.KEY_TAB, tabbedPane.getSelectedIndex() );
 	}
 
 	private void menuItemActionPerformed( ActionEvent e ) {
@@ -888,27 +888,27 @@ class DemoFrame
 
 		// add "Users" button to menubar
 		FlatButton usersButton = new FlatButton();
-		usersButton.setIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/users.svg" ) );
+		usersButton.setIcon( new FlatSVGIcon("com/demo/icons/users.svg") );
 		usersButton.setButtonType( ButtonType.toolBarButton );
 		usersButton.setFocusable( false );
 		usersButton.addActionListener( e -> JOptionPane.showMessageDialog( null, "Hello User! How are you?", "User", JOptionPane.INFORMATION_MESSAGE ) );
 		menuBar1.add( Box.createGlue() );
 		menuBar1.add( usersButton );
 
-		undoMenuItem.setIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/undo.svg" ) );
-		redoMenuItem.setIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/redo.svg" ) );
+		undoMenuItem.setIcon( new FlatSVGIcon("com/demo/icons/undo.svg") );
+		redoMenuItem.setIcon( new FlatSVGIcon("com/demo/icons/redo.svg") );
 
-		cutMenuItem.setIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/menu-cut.svg" ) );
-		copyMenuItem.setIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/copy.svg" ) );
-		pasteMenuItem.setIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/menu-paste.svg" ) );
+		cutMenuItem.setIcon( new FlatSVGIcon("com/demo/icons/menu-cut.svg") );
+		copyMenuItem.setIcon( new FlatSVGIcon("com/demo/icons/copy.svg") );
+		pasteMenuItem.setIcon( new FlatSVGIcon("com/demo/icons/menu-paste.svg") );
 
-		backButton.setIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/back.svg" ) );
-		forwardButton.setIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/forward.svg" ) );
-		cutButton.setIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/menu-cut.svg" ) );
-		copyButton.setIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/copy.svg" ) );
-		pasteButton.setIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/menu-paste.svg" ) );
-		refreshButton.setIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/refresh.svg" ) );
-		showToggleButton.setIcon( new FlatSVGIcon( "com/formdev/flatlaf/demo/icons/show.svg" ) );
+		backButton.setIcon( new FlatSVGIcon("com/demo/icons/back.svg") );
+		forwardButton.setIcon( new FlatSVGIcon("com/demo/icons/forward.svg") );
+		cutButton.setIcon( new FlatSVGIcon("com/demo/icons/menu-cut.svg") );
+		copyButton.setIcon( new FlatSVGIcon("com/demo/icons/copy.svg") );
+		pasteButton.setIcon( new FlatSVGIcon("com/demo/icons/menu-paste.svg") );
+		refreshButton.setIcon( new FlatSVGIcon("com/demo/icons/refresh.svg") );
+		showToggleButton.setIcon( new FlatSVGIcon("com/demo/icons/show.svg") );
 
 		cutMenuItem.addActionListener( new DefaultEditorKit.CutAction() );
 		copyMenuItem.addActionListener( new DefaultEditorKit.CopyAction() );

@@ -1,4 +1,4 @@
-package com.formdev.flatlaf.demo.util;// Copyright 2010 Google Inc. All Rights Reserved.
+package com.demo.util;// Copyright 2010 Google Inc. All Rights Reserved.
 
 /**
  * Diff Speed Test
@@ -18,8 +18,8 @@ import java.io.IOException;
 public class SpeedTest {
 
     public static void main(String args[]) throws IOException {
-        String text1 = readFile("D:\\code\\action\\tool\\src\\test\\java\\com\\formdev\\flatlaf\\demo\\util\\Speedtest1.txt");
-        String text2 = readFile("D:\\code\\action\\tool\\src\\test\\java\\com\\formdev\\flatlaf\\demo\\util\\Speedtest2.txt");
+        String text1 = readFile("/Users/chris/code/action/tool/src/test/java/com/demo/util/Speedtest1.txt");
+        String text2 = readFile("/Users/chris/code/action/tool/src/test/java/com/demo/util/Speedtest2.txt");
 
         diff_match_patch dmp = new diff_match_patch();
         dmp.Diff_Timeout = 0;
