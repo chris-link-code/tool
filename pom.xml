@@ -13,7 +13,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!--<maven-shade-plugin.version>3.4.0</maven-shade-plugin.version>-->
+        <maven-shade-plugin.version>3.4.0</maven-shade-plugin.version>
         <javapackager.version>1.6.7</javapackager.version>
         <slf4j-api.version>2.0.3</slf4j-api.version>
         <logback-classic.version>1.4.4</logback-classic.version>
@@ -77,8 +77,8 @@
     通常使用 maven-shade-plugin 就能够完成大多数的打包需求，其配置简单且适用性最广，因此建议优先使用此方式
     target会生成两个jar包，original开头的是不包含依赖的包
     -->
-    <!--<build>
-        <finalName>flatlaf</finalName>
+    <build>
+        <finalName>tool</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -102,10 +102,10 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>-->
+    </build>
 
     <!-- 打包成各个平台的可执行文件 -->
-    <build>
+    <!--<build>
         <finalName>tool</finalName>
         <plugins>
             <plugin>
@@ -114,28 +114,52 @@
                 <version>${javapackager.version}</version>
                 <configuration>
                     <bundleJre>true</bundleJre>
-                    <mainClass>com.demo.Application</mainClass>
+                    <mainClass>com.formdev.flatlaf.demo.FlatLafDemo</mainClass>
                     <generateInstaller>false</generateInstaller>
                 </configuration>
                 <executions>
-                    <execution>
-                        <id>bundling-for-mac</id>
-                        <!--<id>bundling-for-windows</id>-->
+                    &lt;!&ndash;<execution>
+                        <id>bundling-for-windows</id>
                         <phase>package</phase>
                         <goals>
                             <goal>package</goal>
                         </goals>
                         <configuration>
-                            <!-- //TODO mac打包出来的安装包安装后无法启动 -->
-                            <platform>mac</platform>
-                            <!--<platform>windows</platform>-->
+                            <platform>windows</platform>
+                            <createZipball>true</createZipball>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>bundling-for-linux</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                        <configuration>
+                            <platform>linux</platform>
                             <createTarball>true</createTarball>
-                            <!--<jdkPath>/Library/Java/jdk-17</jdkPath>-->
+                            <jdkPath>X:\\path\to\linux\jdk</jdkPath>
+                        </configuration>
+                    </execution>&ndash;&gt;
+                    <execution>
+                        &lt;!&ndash; //TODO 打包出来的安装包安装后无法启动 &ndash;&gt;
+                        &lt;!&ndash; 原因是可执行文件无法执行 &ndash;&gt;
+                        &lt;!&ndash; /Application/flatlaf.app/Contents/MacOS/universalJavaApplicationStub &ndash;&gt;
+                        <id>bundling-for-windows</id>
+                        &lt;!&ndash;<id>bundling-for-mac</id>&ndash;&gt;
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                        <configuration>
+                            <platform>windows</platform>
+                            <createTarball>true</createTarball>
+                            &lt;!&ndash;<jdkPath>/Library/Java/jdk-17</jdkPath>&ndash;&gt;
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 
 </project>
