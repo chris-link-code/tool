@@ -16,36 +16,14 @@
 
 package com.formdev.flatlaf.demo;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.time.Year;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.prefs.Preferences;
-import javax.swing.*;
-import javax.swing.text.DefaultEditorKit;
-import javax.swing.text.StyleContext;
-import com.formdev.flatlaf.FlatClientProperties;
-import com.formdev.flatlaf.FlatDarculaLaf;
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.*;
 import com.formdev.flatlaf.demo.HintManager.Hint;
-import com.formdev.flatlaf.demo.extras.*;
-import com.formdev.flatlaf.demo.intellijthemes.*;
-import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
-import com.formdev.flatlaf.extras.FlatDesktop;
-import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.formdev.flatlaf.extras.FlatUIDefaultsInspector;
+import com.formdev.flatlaf.demo.extras.ExtrasPanel;
+import com.formdev.flatlaf.demo.intellijthemes.IJThemesPanel;
+import com.formdev.flatlaf.extras.*;
 import com.formdev.flatlaf.extras.components.FlatButton;
 import com.formdev.flatlaf.extras.components.FlatButton.ButtonType;
 import com.formdev.flatlaf.icons.FlatAbstractIcon;
-import com.formdev.flatlaf.extras.FlatSVGUtils;
 import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.ui.JBRCustomDecorations;
 import com.formdev.flatlaf.util.ColorFunctions;
@@ -54,7 +32,24 @@ import com.formdev.flatlaf.util.SystemInfo;
 import net.miginfocom.layout.ConstraintParser;
 import net.miginfocom.layout.LC;
 import net.miginfocom.layout.UnitValue;
-import net.miginfocom.swing.*;
+import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import javax.swing.text.DefaultEditorKit;
+import javax.swing.text.StyleContext;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.Year;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.prefs.Preferences;
 
 /**
  * @author Karl Tauber
@@ -518,6 +513,7 @@ class DemoFrame
 		tabbedPane = new JTabbedPane();
 		BasicComponentsPanel basicComponentsPanel = new BasicComponentsPanel();
 		MoreComponentsPanel moreComponentsPanel = new MoreComponentsPanel();
+		TextComparePanel textComparePanel = new TextComparePanel();
 		DataComponentsPanel dataComponentsPanel = new DataComponentsPanel();
 		TabsPanel tabsPanel = new TabsPanel();
 		OptionPanePanel optionPanePanel = new OptionPanePanel();
@@ -869,6 +865,8 @@ class DemoFrame
 				tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 				tabbedPane.addChangeListener(e -> selectedTabChanged());
 				tabbedPane.addTab("Basic Components", basicComponentsPanel);
+				tabbedPane.addTab("Basic Components", basicComponentsPanel);
+				tabbedPane.addTab("Text Components", textComparePanel);
 				tabbedPane.addTab("More Components", moreComponentsPanel);
 				tabbedPane.addTab("Data Components", dataComponentsPanel);
 				tabbedPane.addTab("Tabs", tabsPanel);
