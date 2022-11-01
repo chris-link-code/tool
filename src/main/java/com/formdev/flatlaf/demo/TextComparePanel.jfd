@@ -18,7 +18,7 @@ new FormModel {
 				"lastDividerLocation": 450
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 					name: "panel1"
-					"background": new java.awt.Color( 153, 153, 153, 255 )
+					"background": new java.awt.Color( 204, 204, 204, 255 )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label1"
 						"text": "LEFT"
@@ -32,7 +32,7 @@ new FormModel {
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 					name: "panel2"
-					"background": new java.awt.Color( 102, 102, 102, 255 )
+					"background": new java.awt.Color( 204, 204, 204, 255 )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label2"
 						"text": "RIGHT"
