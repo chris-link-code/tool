@@ -47,6 +47,7 @@ public class TextComparePanel extends JPanel {
 
         //======== this ========
         setPreferredSize(new Dimension(200, 500));
+        setMinimumSize(new Dimension(200, 120));
         setLayout(new MigLayout(
             "hidemode 3",
             // columns

@@ -10,6 +10,7 @@ new FormModel {
 		} ) {
 			name: "this"
 			"preferredSize": new java.awt.Dimension( 200, 500 )
+			"minimumSize": new java.awt.Dimension( 200, 120 )
 			add( new FormContainer( "javax.swing.JSplitPane", new FormLayoutManager( class javax.swing.JSplitPane ) ) {
 				name: "splitPane"
 				"resizeWeight": 0.5
