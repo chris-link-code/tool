@@ -30,7 +30,7 @@ import java.awt.*;
  */
 @Slf4j
 public class Application {
-    static final String PREFS_ROOT_PATH = "/flatlaf-demo";
+    static final String PREFS_ROOT_PATH = "/tool";
     static final String KEY_TAB = "tab";
 
     static boolean screenshotsMode = Boolean.parseBoolean(System.getProperty("flatlaf.demo.screenshotsMode"));
