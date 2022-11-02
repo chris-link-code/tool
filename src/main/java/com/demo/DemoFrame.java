@@ -522,7 +522,7 @@ class DemoFrame
 		themesPanel = new IJThemesPanel();
 
 		//======== this ========
-		setTitle("FlatLaf Demo");
+		setTitle("Tool");
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());

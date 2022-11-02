@@ -20,8 +20,11 @@ import java.io.IOException;
 public class SpeedTest {
 
     public static void main(String args[]) throws IOException {
-        String text1 = readFile("/Users/chris/code/action/tool/src/test/java/com/demo/util/Speedtest1.txt");
-        String text2 = readFile("/Users/chris/code/action/tool/src/test/java/com/demo/util/Speedtest2.txt");
+        String path = System.getProperty("user.dir");
+        System.out.println("当前位置: " + path);
+
+        String text1 = readFile("./src/test/java/com/demo/util/diff/Speedtest1.txt");
+        String text2 = readFile("./src/test/java/com/demo/util/diff/Speedtest2.txt");
 
         DiffMatchPatch dmp = new DiffMatchPatch();
         dmp.Diff_Timeout = 0;

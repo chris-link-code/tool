@@ -31,6 +31,16 @@ public class TextComparePanel extends JPanel {
         String text2 = textArea2.getText();
         log.info("text1: " + text1);
         log.info("text2: " + text2);
+
+        // TODO 无法改颜色
+        textArea1.select(3,9);
+        textArea1.select(13,21);
+
+        textArea2.select(6,10);
+        textArea2.select(16,20);
+
+        textArea1.setSelectedTextColor(Color.red);
+        textArea2.setSelectedTextColor(Color.lightGray);
     }
 
     private void initComponents() {
