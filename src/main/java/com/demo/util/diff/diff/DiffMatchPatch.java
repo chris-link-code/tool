@@ -18,9 +18,9 @@
 
 package com.demo.util.diff.diff;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -140,7 +140,7 @@ public class DiffMatchPatch {
         // Check for equality (speedup).
         LinkedList<Diff> diffs;
         if (text1.equals(text2)) {
-            diffs = new LinkedList<Diff>();
+            diffs = new LinkedList<>();
             if (text1.length() != 0) {
                 diffs.add(new Diff(Operation.EQUAL, text1));
             }
@@ -188,7 +188,7 @@ public class DiffMatchPatch {
      */
     private LinkedList<Diff> diff_compute(String text1, String text2,
                                           boolean checklines, long deadline) {
-        LinkedList<Diff> diffs = new LinkedList<Diff>();
+        LinkedList<Diff> diffs = new LinkedList<>();
 
         if (text1.length() == 0) {
             // Just add some text (speedup).
@@ -281,21 +281,21 @@ public class DiffMatchPatch {
         diffs.add(new Diff(Operation.EQUAL, ""));
         int count_delete = 0;
         int count_insert = 0;
-        String text_delete = "";
-        String text_insert = "";
+        StringBuilder text_delete = new StringBuilder();
+        StringBuilder text_insert = new StringBuilder();
         ListIterator<Diff> pointer = diffs.listIterator();
         Diff thisDiff = pointer.next();
         while (thisDiff != null) {
             switch (thisDiff.operation) {
-                case INSERT:
+                case INSERT -> {
                     count_insert++;
-                    text_insert += thisDiff.text;
-                    break;
-                case DELETE:
+                    text_insert.append(thisDiff.text);
+                }
+                case DELETE -> {
                     count_delete++;
-                    text_delete += thisDiff.text;
-                    break;
-                case EQUAL:
+                    text_delete.append(thisDiff.text);
+                }
+                case EQUAL -> {
                     // Upon reaching an equality, check for prior redundancies.
                     if (count_delete >= 1 && count_insert >= 1) {
                         // Delete the offending records and add the merged ones.
@@ -304,16 +304,16 @@ public class DiffMatchPatch {
                             pointer.previous();
                             pointer.remove();
                         }
-                        for (Diff subDiff : diff_main(text_delete, text_insert, false,
+                        for (Diff subDiff : diff_main(text_delete.toString(), text_insert.toString(), false,
                                 deadline)) {
                             pointer.add(subDiff);
                         }
                     }
                     count_insert = 0;
                     count_delete = 0;
-                    text_delete = "";
-                    text_insert = "";
-                    break;
+                    text_delete = new StringBuilder();
+                    text_insert = new StringBuilder();
+                }
             }
             thisDiff = pointer.hasNext() ? pointer.next() : null;
         }
@@ -439,7 +439,7 @@ public class DiffMatchPatch {
         }
         // Diff took too long and hit the deadline or
         // number of diffs equals number of characters, no commonality at all.
-        LinkedList<Diff> diffs = new LinkedList<Diff>();
+        LinkedList<Diff> diffs = new LinkedList<>();
         diffs.add(new Diff(Operation.DELETE, text1));
         diffs.add(new Diff(Operation.INSERT, text2));
         return diffs;
@@ -482,8 +482,8 @@ public class DiffMatchPatch {
      * unique strings is intentionally blank.
      */
     public LinesToCharsResult diff_linesToChars(String text1, String text2) {
-        List<String> lineArray = new ArrayList<String>();
-        Map<String, Integer> lineHash = new HashMap<String, Integer>();
+        List<String> lineArray = new ArrayList<>();
+        Map<String, Integer> lineHash = new HashMap<>();
         // e.g. linearray[4] == "Hello\n"
         // e.g. linehash.get("Hello\n") == 4
 
@@ -524,7 +524,7 @@ public class DiffMatchPatch {
             line = text.substring(lineStart, lineEnd + 1);
 
             if (lineHash.containsKey(line)) {
-                chars.append(String.valueOf((char) (int) lineHash.get(line)));
+                chars.append((char) (int) lineHash.get(line));
             } else {
                 if (lineArray.size() == maxLines) {
                     // Bail out at 65535 because
@@ -534,7 +534,7 @@ public class DiffMatchPatch {
                 }
                 lineArray.add(line);
                 lineHash.put(line, lineArray.size() - 1);
-                chars.append(String.valueOf((char) (lineArray.size() - 1)));
+                chars.append((char) (lineArray.size() - 1));
             }
             lineStart = lineEnd + 1;
         }
@@ -745,7 +745,7 @@ public class DiffMatchPatch {
             return;
         }
         boolean changes = false;
-        Deque<Diff> equalities = new ArrayDeque<Diff>();  // Double-ended queue of qualities.
+        Deque<Diff> equalities = new ArrayDeque<>();  // Double-ended queue of qualities.
         String lastEquality = null; // Always equal to equalities.peek().text
         ListIterator<Diff> pointer = diffs.listIterator();
         // Number of characters that changed prior to the equality.
@@ -1037,7 +1037,7 @@ public class DiffMatchPatch {
             return;
         }
         boolean changes = false;
-        Deque<Diff> equalities = new ArrayDeque<Diff>();  // Double-ended queue of equalities.
+        Deque<Diff> equalities = new ArrayDeque<>();  // Double-ended queue of equalities.
         String lastEquality = null; // Always equal to equalities.peek().text
         ListIterator<Diff> pointer = diffs.listIterator();
         // Is there an insertion operation before the last equality.
@@ -1153,17 +1153,17 @@ public class DiffMatchPatch {
         int commonlength;
         while (thisDiff != null) {
             switch (thisDiff.operation) {
-                case INSERT:
+                case INSERT -> {
                     count_insert++;
                     text_insert += thisDiff.text;
                     prevEqual = null;
-                    break;
-                case DELETE:
+                }
+                case DELETE -> {
                     count_delete++;
                     text_delete += thisDiff.text;
                     prevEqual = null;
-                    break;
-                case EQUAL:
+                }
+                case EQUAL -> {
                     if (count_delete + count_insert > 1) {
                         boolean both_types = count_delete != 0 && count_insert != 0;
                         // Delete the offending records.
@@ -1227,7 +1227,7 @@ public class DiffMatchPatch {
                     text_delete = "";
                     text_insert = "";
                     prevEqual = thisDiff;
-                    break;
+                }
             }
             thisDiff = pointer.hasNext() ? pointer.next() : null;
         }
@@ -1338,17 +1338,11 @@ public class DiffMatchPatch {
             String text = aDiff.text.replace("&", "&amp;").replace("<", "&lt;")
                     .replace(">", "&gt;").replace("\n", "&para;<br>");
             switch (aDiff.operation) {
-                case INSERT:
-                    html.append("<ins style=\"background:#e6ffe6;\">").append(text)
-                            .append("</ins>");
-                    break;
-                case DELETE:
-                    html.append("<del style=\"background:#ffe6e6;\">").append(text)
-                            .append("</del>");
-                    break;
-                case EQUAL:
-                    html.append("<span>").append(text).append("</span>");
-                    break;
+                case INSERT -> html.append("<ins style=\"background:#e6ffe6;\">").append(text)
+                        .append("</ins>");
+                case DELETE -> html.append("<del style=\"background:#ffe6e6;\">").append(text)
+                        .append("</del>");
+                case EQUAL -> html.append("<span>").append(text).append("</span>");
             }
         }
         return html.toString();
@@ -1399,18 +1393,15 @@ public class DiffMatchPatch {
         int deletions = 0;
         for (Diff aDiff : diffs) {
             switch (aDiff.operation) {
-                case INSERT:
-                    insertions += aDiff.text.length();
-                    break;
-                case DELETE:
-                    deletions += aDiff.text.length();
-                    break;
-                case EQUAL:
+                case INSERT -> insertions += aDiff.text.length();
+                case DELETE -> deletions += aDiff.text.length();
+                case EQUAL -> {
                     // A deletion and an insertion is one substitution.
                     levenshtein += Math.max(insertions, deletions);
                     insertions = 0;
                     deletions = 0;
-                    break;
+                }
+                default -> throw new IllegalStateException("Unexpected value: " + aDiff.operation);
             }
         }
         levenshtein += Math.max(insertions, deletions);
@@ -1430,21 +1421,10 @@ public class DiffMatchPatch {
         StringBuilder text = new StringBuilder();
         for (Diff aDiff : diffs) {
             switch (aDiff.operation) {
-                case INSERT:
-                    try {
-                        text.append("+").append(URLEncoder.encode(aDiff.text, "UTF-8")
-                                .replace('+', ' ')).append("\t");
-                    } catch (UnsupportedEncodingException e) {
-                        // Not likely on modern system.
-                        throw new Error("This system does not support UTF-8.", e);
-                    }
-                    break;
-                case DELETE:
-                    text.append("-").append(aDiff.text.length()).append("\t");
-                    break;
-                case EQUAL:
-                    text.append("=").append(aDiff.text.length()).append("\t");
-                    break;
+                case INSERT -> text.append("+").append(URLEncoder.encode(aDiff.text, StandardCharsets.UTF_8)
+                        .replace('+', ' ')).append("\t");
+                case DELETE -> text.append("-").append(aDiff.text.length()).append("\t");
+                case EQUAL -> text.append("=").append(aDiff.text.length()).append("\t");
             }
         }
         String delta = text.toString();
@@ -1467,7 +1447,7 @@ public class DiffMatchPatch {
      */
     public LinkedList<Diff> diff_fromDelta(String text1, String delta)
             throws IllegalArgumentException {
-        LinkedList<Diff> diffs = new LinkedList<Diff>();
+        LinkedList<Diff> diffs = new LinkedList<>();
         int pointer = 0;  // Cursor in text1
         String[] tokens = delta.split("\t");
         for (String token : tokens) {
@@ -1479,24 +1459,20 @@ public class DiffMatchPatch {
             // operation of this token (delete, insert, equality).
             String param = token.substring(1);
             switch (token.charAt(0)) {
-                case '+':
+                case '+' -> {
                     // decode would change all "+" to " "
                     param = param.replace("+", "%2B");
                     try {
-                        param = URLDecoder.decode(param, "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        // Not likely on modern system.
-                        throw new Error("This system does not support UTF-8.", e);
+                        param = URLDecoder.decode(param, StandardCharsets.UTF_8);
                     } catch (IllegalArgumentException e) {
                         // Malformed URI sequence.
                         throw new IllegalArgumentException(
                                 "Illegal escape in diff_fromDelta: " + param, e);
                     }
                     diffs.add(new Diff(Operation.INSERT, param));
-                    break;
-                case '-':
-                    // Fall through.
-                case '=':
+                }
+                // Fall through.
+                case '-', '=' -> {
                     int n;
                     try {
                         n = Integer.parseInt(param);
@@ -1521,11 +1497,11 @@ public class DiffMatchPatch {
                     } else {
                         diffs.add(new Diff(Operation.DELETE, text));
                     }
-                    break;
-                default:
+                }
+                default ->
                     // Anything else is an error.
-                    throw new IllegalArgumentException(
-                            "Invalid diff operation in diff_fromDelta: " + token.charAt(0));
+                        throw new IllegalArgumentException(
+                                "Invalid diff operation in diff_fromDelta: " + token.charAt(0));
             }
         }
         if (pointer != text1.length()) {
@@ -1562,7 +1538,7 @@ public class DiffMatchPatch {
             // Nothing to match.
             return -1;
         } else if (loc + pattern.length() <= text.length()
-                && text.substring(loc, loc + pattern.length()).equals(pattern)) {
+                && text.startsWith(pattern, loc)) {
             // Perfect match at the perfect spot!  (Includes case of null pattern)
             return loc;
         } else {
@@ -1701,7 +1677,7 @@ public class DiffMatchPatch {
      * @return Hash of character locations.
      */
     public Map<Character, Integer> match_alphabet(String pattern) {
-        Map<Character, Integer> s = new HashMap<Character, Integer>();
+        Map<Character, Integer> s = new HashMap<>();
         char[] char_pattern = pattern.toCharArray();
         for (char c : char_pattern) {
             s.put(c, 0);
@@ -1830,7 +1806,7 @@ public class DiffMatchPatch {
             throw new IllegalArgumentException("Null inputs. (patch_make)");
         }
 
-        LinkedList<Patch> patches = new LinkedList<Patch>();
+        LinkedList<Patch> patches = new LinkedList<>();
         if (diffs.isEmpty()) {
             return patches;  // Get rid of the null case.
         }
@@ -1850,19 +1826,19 @@ public class DiffMatchPatch {
             }
 
             switch (aDiff.operation) {
-                case INSERT:
+                case INSERT -> {
                     patch.diffs.add(aDiff);
                     patch.length2 += aDiff.text.length();
                     postpatch_text = postpatch_text.substring(0, char_count2)
                             + aDiff.text + postpatch_text.substring(char_count2);
-                    break;
-                case DELETE:
+                }
+                case DELETE -> {
                     patch.length1 += aDiff.text.length();
                     patch.diffs.add(aDiff);
                     postpatch_text = postpatch_text.substring(0, char_count2)
                             + postpatch_text.substring(char_count2 + aDiff.text.length());
-                    break;
-                case EQUAL:
+                }
+                case EQUAL -> {
                     if (aDiff.text.length() <= 2 * Patch_Margin
                             && !patch.diffs.isEmpty() && aDiff != diffs.getLast()) {
                         // Small equality inside a patch.
@@ -1870,7 +1846,6 @@ public class DiffMatchPatch {
                         patch.length1 += aDiff.text.length();
                         patch.length2 += aDiff.text.length();
                     }
-
                     if (aDiff.text.length() >= 2 * Patch_Margin && !patch.diffs.isEmpty()) {
                         // Time for a new patch.
                         if (!patch.diffs.isEmpty()) {
@@ -1885,7 +1860,7 @@ public class DiffMatchPatch {
                             char_count1 = char_count2;
                         }
                     }
-                    break;
+                }
             }
 
             // Update the current character count.
@@ -1912,7 +1887,7 @@ public class DiffMatchPatch {
      * @return Array of Patch objects.
      */
     public LinkedList<Patch> patch_deepCopy(LinkedList<Patch> patches) {
-        LinkedList<Patch> patchesCopy = new LinkedList<Patch>();
+        LinkedList<Patch> patchesCopy = new LinkedList<>();
         for (Patch aPatch : patches) {
             Patch patchCopy = new Patch();
             for (Diff aDiff : aPatch.diffs) {
@@ -2049,9 +2024,9 @@ public class DiffMatchPatch {
      */
     public String patch_addPadding(LinkedList<Patch> patches) {
         short paddingLength = this.Patch_Margin;
-        String nullPadding = "";
+        StringBuilder nullPadding = new StringBuilder();
         for (short x = 1; x <= paddingLength; x++) {
-            nullPadding += String.valueOf((char) x);
+            nullPadding.append((char) x);
         }
 
         // Bump all the patches forward.
@@ -2065,7 +2040,7 @@ public class DiffMatchPatch {
         LinkedList<Diff> diffs = patch.diffs;
         if (diffs.isEmpty() || diffs.getFirst().operation != Operation.EQUAL) {
             // Add nullPadding equality.
-            diffs.addFirst(new Diff(Operation.EQUAL, nullPadding));
+            diffs.addFirst(new Diff(Operation.EQUAL, nullPadding.toString()));
             patch.start1 -= paddingLength;  // Should be 0.
             patch.start2 -= paddingLength;  // Should be 0.
             patch.length1 += paddingLength;
@@ -2087,7 +2062,7 @@ public class DiffMatchPatch {
         diffs = patch.diffs;
         if (diffs.isEmpty() || diffs.getLast().operation != Operation.EQUAL) {
             // Add nullPadding equality.
-            diffs.addLast(new Diff(Operation.EQUAL, nullPadding));
+            diffs.addLast(new Diff(Operation.EQUAL, nullPadding.toString()));
             patch.length1 += paddingLength;
             patch.length2 += paddingLength;
         } else if (paddingLength > diffs.getLast().text.length()) {
@@ -2099,7 +2074,7 @@ public class DiffMatchPatch {
             patch.length2 += extraLength;
         }
 
-        return nullPadding;
+        return nullPadding.toString();
     }
 
     /**
@@ -2231,12 +2206,12 @@ public class DiffMatchPatch {
      */
     public List<Patch> patch_fromText(String textline)
             throws IllegalArgumentException {
-        List<Patch> patches = new LinkedList<Patch>();
+        List<Patch> patches = new LinkedList<>();
         if (textline.length() == 0) {
             return patches;
         }
         List<String> textList = Arrays.asList(textline.split("\n"));
-        LinkedList<String> text = new LinkedList<String>(textList);
+        LinkedList<String> text = new LinkedList<>(textList);
         Patch patch;
         Pattern patchHeader
                 = Pattern.compile("^@@ -(\\d+),?(\\d*) \\+(\\d+),?(\\d*) @@$");
@@ -2285,10 +2260,7 @@ public class DiffMatchPatch {
                 line = text.getFirst().substring(1);
                 line = line.replace("+", "%2B");  // decode would change all "+" to " "
                 try {
-                    line = URLDecoder.decode(line, "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    // Not likely on modern system.
-                    throw new Error("This system does not support UTF-8.", e);
+                    line = URLDecoder.decode(line, StandardCharsets.UTF_8);
                 } catch (IllegalArgumentException e) {
                     // Malformed URI sequence.
                     throw new IllegalArgumentException(

@@ -1,7 +1,7 @@
 package com.demo.util.diff.diff;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 
 /**
@@ -18,11 +18,11 @@ public class Patch {
      * Constructor.  Initializes with an empty list of diffs.
      */
     public Patch() {
-        this.diffs = new LinkedList<Diff>();
+        this.diffs = new LinkedList<>();
     }
 
     /**
-     * Emulate GNU diff's format.
+     * Emulate GNU diffs format.
      * Header: @@ -382,8 +481,9 @@
      * Indices are printed as 1-based, not 0-based.
      *
@@ -50,23 +50,12 @@ public class Patch {
         // Escape the body of the patch with %xx notation.
         for (Diff aDiff : this.diffs) {
             switch (aDiff.operation) {
-                case INSERT:
-                    text.append('+');
-                    break;
-                case DELETE:
-                    text.append('-');
-                    break;
-                case EQUAL:
-                    text.append(' ');
-                    break;
+                case INSERT -> text.append('+');
+                case DELETE -> text.append('-');
+                case EQUAL -> text.append(' ');
             }
-            try {
-                text.append(URLEncoder.encode(aDiff.text, "UTF-8").replace('+', ' '))
-                        .append("\n");
-            } catch (UnsupportedEncodingException e) {
-                // Not likely on modern system.
-                throw new Error("This system does not support UTF-8.", e);
-            }
+            text.append(URLEncoder.encode(aDiff.text, StandardCharsets.UTF_8).replace('+', ' '))
+                    .append("\n");
         }
         return DiffMatchPatch.unescapeForEncodeUriCompatability(text.toString());
     }
