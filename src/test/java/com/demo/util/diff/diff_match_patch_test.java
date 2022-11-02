@@ -25,19 +25,16 @@
 
 package com.demo.util.diff;
 
-import com.demo.util.diff.diff.Diff;
-import com.demo.util.diff.diff.DiffMatchPatch;
-import com.demo.util.diff.diff.LinesToCharsResult;
-import com.demo.util.diff.diff.Patch;
+import com.demo.util.diff.diff.*;
 
 import java.util.*;
 
 public class diff_match_patch_test {
 
     private static DiffMatchPatch dmp;
-    private static DiffMatchPatch.Operation DELETE = DiffMatchPatch.Operation.DELETE;
-    private static DiffMatchPatch.Operation EQUAL = DiffMatchPatch.Operation.EQUAL;
-    private static DiffMatchPatch.Operation INSERT = DiffMatchPatch.Operation.INSERT;
+    private static Operation DELETE = Operation.DELETE;
+    private static Operation EQUAL = Operation.EQUAL;
+    private static Operation INSERT = Operation.INSERT;
 
 
     //  DIFF TEST FUNCTIONS
@@ -943,10 +940,10 @@ public class diff_match_patch_test {
     private static String[] diff_rebuildtexts(LinkedList<Diff> diffs) {
         String[] text = {"", ""};
         for (Diff myDiff : diffs) {
-            if (myDiff.operation != DiffMatchPatch.Operation.INSERT) {
+            if (myDiff.operation != Operation.INSERT) {
                 text[0] += myDiff.text;
             }
-            if (myDiff.operation != DiffMatchPatch.Operation.DELETE) {
+            if (myDiff.operation != Operation.DELETE) {
                 text[1] += myDiff.text;
             }
         }

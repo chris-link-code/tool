@@ -7,7 +7,7 @@ public class Diff {
     /**
      * One of: INSERT, DELETE or EQUAL.
      */
-    public DiffMatchPatch.Operation operation;
+    public Operation operation;
     /**
      * The text associated with this diff operation.
      */
@@ -19,7 +19,7 @@ public class Diff {
      * @param operation One of INSERT, DELETE or EQUAL.
      * @param text      The text being applied.
      */
-    public Diff(DiffMatchPatch.Operation operation, String text) {
+    public Diff(Operation operation, String text) {
         // Construct a diff with the specified operation and text.
         this.operation = operation;
         this.text = text;
