@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.demo.util;
+package com.demo.util.diff.diff;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -37,7 +37,7 @@ import java.util.regex.Pattern;
  * Class containing the diff, match and patch methods.
  * Also contains the behaviour settings.
  */
-public class diff_match_patch {
+public class DiffMatchPatch {
 
     // Defaults.
     // Set these on your diff_match_patch instance to override the defaults.
@@ -76,23 +76,6 @@ public class diff_match_patch {
      * The number of bits in an int.
      */
     private short Match_MaxBits = 32;
-
-    /**
-     * Internal class for returning results from diff_linesToChars().
-     * Other less paranoid languages just use a three-element array.
-     */
-    protected static class LinesToCharsResult {
-        protected String chars1;
-        protected String chars2;
-        protected List<String> lineArray;
-
-        protected LinesToCharsResult(String chars1, String chars2,
-                                     List<String> lineArray) {
-            this.chars1 = chars1;
-            this.chars2 = chars2;
-            this.lineArray = lineArray;
-        }
-    }
 
 
     //  DIFF FUNCTIONS
@@ -359,8 +342,8 @@ public class diff_match_patch {
      * @param deadline Time at which to bail if not yet complete.
      * @return LinkedList of Diff objects.
      */
-    protected LinkedList<Diff> diff_bisect(String text1, String text2,
-                                           long deadline) {
+    public LinkedList<Diff> diff_bisect(String text1, String text2,
+                                        long deadline) {
         // Cache the text lengths to prevent multiple calls.
         int text1_length = text1.length();
         int text2_length = text2.length();
@@ -508,7 +491,7 @@ public class diff_match_patch {
      * the List of unique strings.  The zeroth element of the List of
      * unique strings is intentionally blank.
      */
-    protected LinesToCharsResult diff_linesToChars(String text1, String text2) {
+    public LinesToCharsResult diff_linesToChars(String text1, String text2) {
         List<String> lineArray = new ArrayList<String>();
         Map<String, Integer> lineHash = new HashMap<String, Integer>();
         // e.g. linearray[4] == "Hello\n"
@@ -575,8 +558,8 @@ public class diff_match_patch {
      * @param diffs     List of Diff objects.
      * @param lineArray List of unique strings.
      */
-    protected void diff_charsToLines(List<Diff> diffs,
-                                     List<String> lineArray) {
+    public void diff_charsToLines(List<Diff> diffs,
+                                  List<String> lineArray) {
         StringBuilder text;
         for (Diff diff : diffs) {
             text = new StringBuilder();
@@ -633,7 +616,7 @@ public class diff_match_patch {
      * @return The number of characters common to the end of the first
      * string and the start of the second string.
      */
-    protected int diff_commonOverlap(String text1, String text2) {
+    public int diff_commonOverlap(String text1, String text2) {
         // Cache the text lengths to prevent multiple calls.
         int text1_length = text1.length();
         int text2_length = text2.length();
@@ -684,7 +667,7 @@ public class diff_match_patch {
      * suffix of text1, the prefix of text2, the suffix of text2 and the
      * common middle.  Or null if there was no match.
      */
-    protected String[] diff_halfMatch(String text1, String text2) {
+    public String[] diff_halfMatch(String text1, String text2) {
         if (Diff_Timeout <= 0) {
             // Don't risk returning a non-optimal diff if we have unlimited time.
             return null;
@@ -1607,7 +1590,7 @@ public class diff_match_patch {
      * @param loc     The location to search around.
      * @return Best match index or -1.
      */
-    protected int match_bitap(String text, String pattern, int loc) {
+    public int match_bitap(String text, String pattern, int loc) {
         assert (Match_MaxBits == 0 || pattern.length() <= Match_MaxBits)
                 : "Pattern too long for this application.";
 
@@ -1727,7 +1710,7 @@ public class diff_match_patch {
      * @param pattern The text to encode.
      * @return Hash of character locations.
      */
-    protected Map<Character, Integer> match_alphabet(String pattern) {
+    public Map<Character, Integer> match_alphabet(String pattern) {
         Map<Character, Integer> s = new HashMap<Character, Integer>();
         char[] char_pattern = pattern.toCharArray();
         for (char c : char_pattern) {
@@ -1752,7 +1735,7 @@ public class diff_match_patch {
      * @param patch The patch to grow.
      * @param text  Source text.
      */
-    protected void patch_addContext(Patch patch, String text) {
+    public void patch_addContext(Patch patch, String text) {
         if (text.length() == 0) {
             return;
         }
@@ -2346,156 +2329,6 @@ public class diff_match_patch {
 
 
     /**
-     * Class representing one diff operation.
-     */
-    public static class Diff {
-        /**
-         * One of: INSERT, DELETE or EQUAL.
-         */
-        public Operation operation;
-        /**
-         * The text associated with this diff operation.
-         */
-        public String text;
-
-        /**
-         * Constructor.  Initializes the diff with the provided values.
-         *
-         * @param operation One of INSERT, DELETE or EQUAL.
-         * @param text      The text being applied.
-         */
-        public Diff(Operation operation, String text) {
-            // Construct a diff with the specified operation and text.
-            this.operation = operation;
-            this.text = text;
-        }
-
-        /**
-         * Display a human-readable version of this Diff.
-         *
-         * @return text version.
-         */
-        public String toString() {
-            String prettyText = this.text.replace('\n', '\u00b6');
-            return "Diff(" + this.operation + ",\"" + prettyText + "\")";
-        }
-
-        /**
-         * Create a numeric hash value for a Diff.
-         * This function is not used by DMP.
-         *
-         * @return Hash value.
-         */
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = (operation == null) ? 0 : operation.hashCode();
-            result += prime * ((text == null) ? 0 : text.hashCode());
-            return result;
-        }
-
-        /**
-         * Is this Diff equivalent to another Diff?
-         *
-         * @param obj Another Diff to compare against.
-         * @return true or false.
-         */
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (getClass() != obj.getClass()) {
-                return false;
-            }
-            Diff other = (Diff) obj;
-            if (operation != other.operation) {
-                return false;
-            }
-            if (text == null) {
-                if (other.text != null) {
-                    return false;
-                }
-            } else if (!text.equals(other.text)) {
-                return false;
-            }
-            return true;
-        }
-    }
-
-
-    /**
-     * Class representing one patch operation.
-     */
-    public static class Patch {
-        public LinkedList<Diff> diffs;
-        public int start1;
-        public int start2;
-        public int length1;
-        public int length2;
-
-        /**
-         * Constructor.  Initializes with an empty list of diffs.
-         */
-        public Patch() {
-            this.diffs = new LinkedList<Diff>();
-        }
-
-        /**
-         * Emulate GNU diff's format.
-         * Header: @@ -382,8 +481,9 @@
-         * Indices are printed as 1-based, not 0-based.
-         *
-         * @return The GNU diff string.
-         */
-        public String toString() {
-            String coords1, coords2;
-            if (this.length1 == 0) {
-                coords1 = this.start1 + ",0";
-            } else if (this.length1 == 1) {
-                coords1 = Integer.toString(this.start1 + 1);
-            } else {
-                coords1 = (this.start1 + 1) + "," + this.length1;
-            }
-            if (this.length2 == 0) {
-                coords2 = this.start2 + ",0";
-            } else if (this.length2 == 1) {
-                coords2 = Integer.toString(this.start2 + 1);
-            } else {
-                coords2 = (this.start2 + 1) + "," + this.length2;
-            }
-            StringBuilder text = new StringBuilder();
-            text.append("@@ -").append(coords1).append(" +").append(coords2)
-                    .append(" @@\n");
-            // Escape the body of the patch with %xx notation.
-            for (Diff aDiff : this.diffs) {
-                switch (aDiff.operation) {
-                    case INSERT:
-                        text.append('+');
-                        break;
-                    case DELETE:
-                        text.append('-');
-                        break;
-                    case EQUAL:
-                        text.append(' ');
-                        break;
-                }
-                try {
-                    text.append(URLEncoder.encode(aDiff.text, "UTF-8").replace('+', ' '))
-                            .append("\n");
-                } catch (UnsupportedEncodingException e) {
-                    // Not likely on modern system.
-                    throw new Error("This system does not support UTF-8.", e);
-                }
-            }
-            return unescapeForEncodeUriCompatability(text.toString());
-        }
-    }
-
-    /**
      * Unescape selected chars for compatability with JavaScript's encodeURI.
      * In speed critical applications this could be dropped since the
      * receiving application will certainly decode these fine.
@@ -2508,7 +2341,7 @@ public class diff_match_patch {
      * @param str The string to escape.
      * @return The escaped string.
      */
-    private static String unescapeForEncodeUriCompatability(String str) {
+    public static String unescapeForEncodeUriCompatability(String str) {
         return str.replace("%21", "!").replace("%7E", "~")
                 .replace("%27", "'").replace("%28", "(").replace("%29", ")")
                 .replace("%3B", ";").replace("%2F", "/").replace("%3F", "?")

@@ -23,20 +23,21 @@
  * java -classpath classes name/fraser/neil/plaintext/diff_match_patch_test
  */
 
-package com.demo.util;
+package com.demo.util.diff;
 
-import com.demo.util.diff_match_patch.Diff;
-import com.demo.util.diff_match_patch.LinesToCharsResult;
-import com.demo.util.diff_match_patch.Patch;
+import com.demo.util.diff.diff.Diff;
+import com.demo.util.diff.diff.DiffMatchPatch;
+import com.demo.util.diff.diff.LinesToCharsResult;
+import com.demo.util.diff.diff.Patch;
 
 import java.util.*;
 
 public class diff_match_patch_test {
 
-    private static diff_match_patch dmp;
-    private static diff_match_patch.Operation DELETE = diff_match_patch.Operation.DELETE;
-    private static diff_match_patch.Operation EQUAL = diff_match_patch.Operation.EQUAL;
-    private static diff_match_patch.Operation INSERT = diff_match_patch.Operation.INSERT;
+    private static DiffMatchPatch dmp;
+    private static DiffMatchPatch.Operation DELETE = DiffMatchPatch.Operation.DELETE;
+    private static DiffMatchPatch.Operation EQUAL = DiffMatchPatch.Operation.EQUAL;
+    private static DiffMatchPatch.Operation INSERT = DiffMatchPatch.Operation.INSERT;
 
 
     //  DIFF TEST FUNCTIONS
@@ -942,10 +943,10 @@ public class diff_match_patch_test {
     private static String[] diff_rebuildtexts(LinkedList<Diff> diffs) {
         String[] text = {"", ""};
         for (Diff myDiff : diffs) {
-            if (myDiff.operation != diff_match_patch.Operation.INSERT) {
+            if (myDiff.operation != DiffMatchPatch.Operation.INSERT) {
                 text[0] += myDiff.text;
             }
-            if (myDiff.operation != diff_match_patch.Operation.DELETE) {
+            if (myDiff.operation != DiffMatchPatch.Operation.DELETE) {
                 text[1] += myDiff.text;
             }
         }
@@ -958,7 +959,7 @@ public class diff_match_patch_test {
     }
 
     public static void main(String args[]) {
-        dmp = new diff_match_patch();
+        dmp = new DiffMatchPatch();
 
         testDiffCommonPrefix();
         testDiffCommonSuffix();

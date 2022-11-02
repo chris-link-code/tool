@@ -1,4 +1,4 @@
-package com.demo.util;// Copyright 2010 Google Inc. All Rights Reserved.
+package com.demo.util.diff;// Copyright 2010 Google Inc. All Rights Reserved.
 
 /**
  * Diff Speed Test
@@ -11,6 +11,8 @@ package com.demo.util;// Copyright 2010 Google Inc. All Rights Reserved.
  * @author fraser@google.com (Neil Fraser)
  */
 
+import com.demo.util.diff.diff.DiffMatchPatch;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,7 +23,7 @@ public class SpeedTest {
         String text1 = readFile("/Users/chris/code/action/tool/src/test/java/com/demo/util/Speedtest1.txt");
         String text2 = readFile("/Users/chris/code/action/tool/src/test/java/com/demo/util/Speedtest2.txt");
 
-        diff_match_patch dmp = new diff_match_patch();
+        DiffMatchPatch dmp = new DiffMatchPatch();
         dmp.Diff_Timeout = 0;
 
         // Execute one reverse diff as a warmup.
