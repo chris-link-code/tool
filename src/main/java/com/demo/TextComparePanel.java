@@ -17,30 +17,57 @@ import java.awt.event.MouseEvent;
  */
 @Slf4j
 public class TextComparePanel extends JPanel {
+    private static volatile boolean firstCompare = true;
+
     public TextComparePanel() {
         initComponents();
     }
 
     private void button1MouseClicked(MouseEvent e) {
-        textArea1.setText("");
-        textArea2.setText("");
+        textArea1.setEditable(true);
+        textArea2.setEditable(true);
+        textArea1.setText(null);
+        textArea2.setText(null);
+    }
+
+    private void textArea() {
+        if (firstCompare) {
+            // 改变背景颜色
+            textArea1.setSelectionColor(Color.LIGHT_GRAY);
+            log.info("change selected text background color LIGHT_GRAY");
+
+            // 改变字体颜色
+            textArea1.setSelectedTextColor(Color.BLUE);
+            log.info("change selected text color BLUE");
+
+            firstCompare = false;
+        }
     }
 
     private void button2MouseClicked(MouseEvent e) {
+        textArea();
+
+        // TODO 选择这里有问题，在这里选中不会变色，手动选中才会变色
+        textArea1.select(1, 3);
+
+        textArea1.setEditable(false);
+        textArea2.setEditable(false);
+
+        //textArea1.setSelectionStart(0);
+        //textArea1.setSelectionEnd(0);
+
+        //textArea1.select(13,21);
+        textArea2.setText(textArea1.getSelectedText());
+
+        //textArea2.select(6, 10);
+        //textArea2.select(16,20);
+        //textArea2.setSelectedTextColor(Color.lightGray);
+
         String text1 = textArea1.getText();
         String text2 = textArea2.getText();
+
         log.info("text1: " + text1);
         log.info("text2: " + text2);
-
-        // TODO 无法改颜色
-        textArea1.select(3,9);
-        textArea1.select(13,21);
-
-        textArea2.select(6,10);
-        textArea2.select(16,20);
-
-        textArea1.setSelectedTextColor(Color.red);
-        textArea2.setSelectedTextColor(Color.lightGray);
     }
 
     private void initComponents() {
@@ -59,12 +86,12 @@ public class TextComparePanel extends JPanel {
         setPreferredSize(new Dimension(200, 500));
         setMinimumSize(new Dimension(200, 120));
         setLayout(new MigLayout(
-            "hidemode 3",
-            // columns
-            "[fill]",
-            // rows
-            "[]" +
-            "[]"));
+                "hidemode 3",
+                // columns
+                "[fill]",
+                // rows
+                "[]" +
+                        "[]"));
 
         //======== splitPane ========
         {
