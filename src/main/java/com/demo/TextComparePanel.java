@@ -69,6 +69,76 @@ public class TextComparePanel extends JPanel {
         log.info("text1: " + text1);
         log.info("text2: " + text2);
     }
+    
+    /*
+     * C# 代码
+    public void speedTest()
+    {
+        //string text1 = File.ReadAllText("D:/code/others/Speedtest1.txt");
+        //string text2 = File.ReadAllText("D:/code/others/Speedtest2.txt");
+        string text1 = rtb1.Text.Trim();
+        string text2 = rtb2.Text.Trim();
+
+        diff_match_patch dmp = new diff_match_patch();
+        dmp.Diff_Timeout = 0;
+
+        int i = 0,j = 0;
+
+        // Execute one reverse diff as a warmup.
+        List<Diff> diffs = dmp.diff_main(text2, text1);
+        foreach (Diff diff in diffs)
+        {
+            //rtb1.Select(i, 1);
+            if (diff.operation == Operation.EQUAL)
+            {
+                rtb3.Text += "[EQUAL]" + diff.text + "\r\n";
+                i += diff.text.Length;
+            }
+            else if (diff.operation == Operation.INSERT)
+            {
+                rtb3.Text += "[INSERT]" + diff.text + "\r\n";
+                rtb1.Select(i, diff.text.Length);
+                i += diff.text.Length;
+            }
+            else if (diff.operation == Operation.DELETE)
+                rtb3.Text += "[DELETE]" + diff.text + "\r\n";
+            else
+                rtb3.Text += "[OTHERS]";
+            rtb1.SelectionColor = Color.Blue;
+            rtb1.SelectionBackColor = Color.LightGray;
+        }
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+
+        DateTime ms_start = DateTime.Now;
+        List<Diff> diffs1 = dmp.diff_main(text1, text2);
+        DateTime ms_end = DateTime.Now;
+
+        foreach (Diff diff in diffs1)
+        {
+            //rtb2.Select(j, 1);
+            if (diff.operation == Operation.EQUAL)
+            {
+                rtb4.Text += "[EQUAL]" + diff.text + "\r\n";
+                j += diff.text.Length;
+            }
+            else if (diff.operation == Operation.INSERT)
+            {
+                rtb4.Text += "[INSERT]" + diff.text + "\r\n";
+                rtb2.Select(j, diff.text.Length);
+                j += diff.text.Length;
+            }
+            else if (diff.operation == Operation.DELETE)
+                rtb4.Text += "[DELETE]" + diff.text + "\r\n";
+            else
+                rtb4.Text += "[OTHERS]";
+            rtb2.SelectionColor = Color.Blue;
+            rtb2.SelectionBackColor = Color.LightGray;
+        }
+
+        //Console.WriteLine("Elapsed time: " + (ms_end - ms_start));
+        //rtb1.Text += "Elapsed time: " + (ms_end - ms_start) + "\r\n";
+    }*/
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
